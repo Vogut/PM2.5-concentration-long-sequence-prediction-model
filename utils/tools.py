@@ -20,7 +20,7 @@ def save_model(epoch, lr, model, model_dir, model_name='pems08', horizon=12):
     print('save model in ',file_name)
 
 
-def load_model(model, model_dir, model_name='pems08', horizon=12):
+def load_model(model, model_dir, model_name, horizon=12):
     if not model_dir:
         return
     file_name = os.path.join(model_dir, model_name+str(horizon)+'.bin') 
@@ -35,7 +35,7 @@ def load_model(model, model_dir, model_name='pems08', horizon=12):
         print('loaded the model...', file_name, 'now lr:', lr, 'now epoch:', epoch)
     return model, lr, epoch
 
-def load_checkpoint(model, model_dir, model_name='pems08'):
+def load_checkpoint(model, model_dir, model_name):
     if not model_dir:
         return
     file_name = os.path.join(model_dir, 'checkpoint.pth') 
@@ -149,7 +149,7 @@ def load_cities(path="city-data", dataset="distances.xlsx"):
     # # ------------------------------------------------
     adj = sp.csr_matrix(adj, dtype=np.float32)
     adj = normalize_adj(adj-sp.eye(adj.shape[0]))
-    #adj = normalize_adj(adj)#保持自环
+    #adj = normalize_adj(adj)
     adj = torch.FloatTensor(np.array(adj.todense()))   
     return adj
 
